@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:library_demo/Blocs/bloc.dart';
-import 'package:library_demo/Blocs/login_bloc.dart';
 import 'package:library_demo/Sdk/sdk.dart';
+import 'package:library_demo/Widgets/error_alert.dart';
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -41,11 +40,11 @@ class _AuthScreenState extends State<AuthScreen> {
     try {
       final res = await SDK().registration(name, email, password, passwordConfirmation);
       if (res) {
-        await showAlert('Регистрация прошла успешно');
+        await ErrorAlert.show(context, 'Регистрация прошла успешно');
         Navigator.of(context).pop();
       }
     } catch (e) {
-      await showAlert('Что-то пошло не так', message: '$e');
+      await ErrorAlert.show(context, 'Что-то пошло не так', message: '$e');
     }
   }
 

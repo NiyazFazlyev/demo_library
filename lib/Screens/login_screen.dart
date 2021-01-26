@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:library_demo/Blocs/bloc.dart';
 import 'package:library_demo/Blocs/login_bloc.dart';
+import 'package:library_demo/Widgets/error_alert.dart';
 
 import 'auth_screen.dart';
 
@@ -32,7 +33,11 @@ class _LoginScreenState extends State<LoginScreen> {
   void loginButtonPressed() {
     final login = _loginController.text;
     final password = _passwordController.text;
-    _bloc.login(login, password);
+    try {
+      _bloc.login(login, password);
+    } catch (e) {
+      ErrorAlert.show(context, 'Авторизация не удалась', message: 'Попробуйте снова');
+    }
   }
 
   @override

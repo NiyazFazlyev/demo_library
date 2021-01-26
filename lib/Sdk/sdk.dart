@@ -38,19 +38,14 @@ class SDK {
 
   Future<void> login(String email, String password) async {
     final data = json.encode({"email": email, "password": password, "password_confirmation": password});
-
-    try {
-      final response = await dio.post(
-        "login",
-        data: data,
-      );
-      if (response.statusCode == 200) {
-        final responseData = response.data['data'];
-        final token = responseData['token'];
-        CredentialStorage.setAthorized(token);
-      }
-    } catch (e) {
-      print('#SDK# $e');
+    final response = await dio.post(
+      "login",
+      data: data,
+    );
+    if (response.statusCode == 200) {
+      final responseData = response.data['data'];
+      final token = responseData['token'];
+      CredentialStorage.setAthorized(token);
     }
   }
 
