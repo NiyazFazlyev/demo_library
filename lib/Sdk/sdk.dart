@@ -86,20 +86,16 @@ class SDK {
   }
 
   Future<List<Author>> fetchAuthors() async {
-    try {
-      final response = await dio.get("authors");
-      if (response.statusCode == 200) {
-        final data = response?.data['data'] as List;
-        List<Author> authors = [];
-        data.forEach((element) {
-          authors.add(Author.fromJson(element as Map<String, dynamic>));
-        });
-        return authors;
-      }
-    } catch (e) {
-      print('#SDK# $e');
+    final response = await dio.get("authors");
+    if (response.statusCode == 200) {
+      final data = response?.data['data'] as List;
+      List<Author> authors = [];
+      data.forEach((element) {
+        authors.add(Author.fromJson(element as Map<String, dynamic>));
+      });
+      return authors;
     }
-    return [];
+    return null;
   }
 
   Future<List<Book>> fetchAuthorsBooks(int authorId) async {
@@ -151,7 +147,7 @@ class SDK {
     } catch (e) {
       print('#SDK# $e');
     }
-    return [];
+    return null;
   }
 
   Future<bool> addToFavorities(Book book) async {

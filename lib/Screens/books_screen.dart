@@ -38,6 +38,11 @@ class _BooksScreenState extends State<BooksScreen> {
           stream: _bloc.booksStream,
           initialData: _bloc.books,
           builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CupertinoActivityIndicator(radius: 24),
+              );
+            }
             if (snapshot.hasData) {
               return Material(
                 child: ListView.separated(
@@ -56,7 +61,7 @@ class _BooksScreenState extends State<BooksScreen> {
               );
             }
             return Center(
-              child: Text('Нет книг'),
+              child: Text('Нет удалось загрузить книги'),
             );
           }),
     );

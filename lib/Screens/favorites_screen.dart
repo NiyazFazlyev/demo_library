@@ -28,7 +28,12 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
           stream: _bloc.favoriteBooksStream,
           initialData: _bloc.favoriteBooks,
           builder: (context, snapshot) {
-            if (snapshot.hasData) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CupertinoActivityIndicator(radius: 24),
+              );
+            }
+            if (snapshot.hasData && snapshot.data.isNotEmpty) {
               return Material(
                 child: ListView.separated(
                   itemBuilder: (ctx, index) {
@@ -46,7 +51,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
               );
             }
             return Center(
-              child: Text('Нет книг'),
+              child: Text('У вас пока нет избранных книг'),
             );
           }),
     );
