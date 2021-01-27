@@ -13,7 +13,5 @@ class LoginBloc implements Bloc {
   }
 
   @override
-  void dispose() {
-    // TODO: implement dispose
-  }
+  void dispose() {}
 }
