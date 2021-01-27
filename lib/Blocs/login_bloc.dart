@@ -7,7 +7,7 @@ class LoginBloc implements Bloc {
   GlobalStateBloc _globalBloc;
   LoginBloc(this._globalBloc);
 
-  void login(String email, String password) async {
+  Future<void> login(String email, String password) async {
     await SDK().login(email, password);
     _globalBloc.updateState();
   }

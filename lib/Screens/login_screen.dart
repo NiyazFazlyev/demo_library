@@ -30,13 +30,13 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  void loginButtonPressed() {
+  void loginButtonPressed() async {
     final login = _loginController.text;
     final password = _passwordController.text;
     try {
-      _bloc.login(login, password);
+      await _bloc.login(login, password);
     } catch (e) {
-      ErrorAlert.show(context, 'Авторизация не удалась', message: 'Попробуйте снова');
+      ErrorAlert.show(context, 'Не удалось авторизоваться', message: 'Попробуйте снова');
     }
   }
 
