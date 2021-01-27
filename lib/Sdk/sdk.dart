@@ -69,18 +69,14 @@ class SDK {
   Future<Profile> fetchProfile() async {
     final token = CredentialStorage.token;
 
-    try {
-      final response = await dio.get(
-        "me",
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
-      );
-      if (response.statusCode == 200) {
-        final data = response?.data['data'];
-        final profile = Profile.fromJson(data);
-        return profile;
-      }
-    } catch (e) {
-      print('#SDK# $e');
+    final response = await dio.get(
+      "me",
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
+    );
+    if (response.statusCode == 200) {
+      final data = response?.data['data'];
+      final profile = Profile.fromJson(data);
+      return profile;
     }
     return null;
   }

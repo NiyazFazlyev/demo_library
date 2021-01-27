@@ -32,6 +32,16 @@ class ProfileScreen extends StatelessWidget {
                 FutureBuilder<Profile>(
                     future: SDK().fetchProfile(),
                     builder: (ctx, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
+                          child: CupertinoActivityIndicator(radius: 24),
+                        );
+                      }
+                      if (snapshot.hasError) {
+                        return Center(
+                          child: Text('Не удалось загрузить данные о пользователе'),
+                        );
+                      }
                       if (snapshot.hasData) {
                         return Column(
                           children: [
@@ -41,7 +51,9 @@ class ProfileScreen extends StatelessWidget {
                           ],
                         );
                       }
-                      return Container();
+                      return Center(
+                        child: Text('Не удалось загрузить данные о пользователе'),
+                      );
                     }),
                 CupertinoButton(
                   child: Text('Logout'),
